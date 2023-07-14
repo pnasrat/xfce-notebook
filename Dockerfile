@@ -25,10 +25,12 @@ RUN add-apt-repository ppa:mozillateam/ppa \
 # jupyter-remote-desktop-proxy
 RUN mamba install --yes \
     websockify && \
-    pip install jupyter-remote-desktop-proxy  && \
+    pip install git+https://github.com/jupyterhub/jupyter-remote-desktop-proxy.git  && \
     mamba clean --all -f --yes && \
     fix-permissions "${CONDA_DIR}" && \
     fix-permissions "/home/${NB_USER}"
+
+ENV USER=${NB_USER}
 
 # Reset to jovyan user
 USER ${NB_UID}
